@@ -1,4 +1,4 @@
-import { Button, Input, Slider } from 'antd'
+import { Button, InputNumber, Slider } from 'antd'
 import React, { Dispatch, useState } from 'react'
 import { connect } from 'react-redux';
 import PanelLayout from './PanelLayout';
@@ -21,10 +21,12 @@ function Panel({panel, dispatch}: IProps) {
                     if(index < 2) {
                         return <li>
                             <span>{item}</span>
-                            <Input style={{width: 200}} value={panel[item] * mortgage /100 } />
+                            <InputNumber
+                                formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                style={{width: 200, fontWeight: 'bold'}} value={panel[item] * mortgage /100 } />
                         </li>
                     }
-                    return <li><span>{item}</span><b>{panel[item] * mortgage /100}</b></li>
+                    return <li><span>{item}</span><b>{'$' + panel[item] * mortgage /100}</b></li>
                 })}
             </ul>
             </>
